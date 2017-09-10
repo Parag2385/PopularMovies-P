@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="movie_not_available">Movie data is not available</string>
+
+    <!-- Strings For Order-By Preference [CHAR LIMIT=30] -->
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order_by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_popular_value</string>
+
+    <string name="settings_order_by_popular_label">Popular</string>
+    <string name="settings_order_by_popular_value">popular</string>
+
+    <string name="settings_order_by_rating_label">Top Rated</string>
+    <string name="settings_order_by_rating_values">top_rated</string>
+    <string name="movie_poster_description">Movie Poster</string>
+    <string name="title_movie">Title</string>
+    <string name="vote_movie">vote</string>
+    <string name="release_date_movie">Release Date</string>
+    <string name="overview_movie">overview</string>
+    <string name="from_votes">From Votes</string>
+    <string name="overview_title">Overview:</string>
+    <string name="original_language">Original Language</string>
+    <string name="not_available">Not Available</string>
+    <string name="heart_image_for_votes">Heart Image for Votes</string>
+    <string name="movie_poster_for_gridview">Movie poster which will be shown in GridView</string>
+    <string name="menu_settings">settings</string>
+</resources>
