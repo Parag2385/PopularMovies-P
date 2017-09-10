@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private TextView mEmptyTextView;
 
     private MovieAdapter movieAdapter;
-    private ArrayList<Movie> movies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +50,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,2);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        //ArrayList<Movie> arrayList = new ArrayList<>();
-        movieAdapter = new MovieAdapter(getApplicationContext(), movies);
+        ArrayList<Movie> arrayList = new ArrayList<>();
+        movieAdapter = new MovieAdapter(getApplicationContext(), arrayList);
         mRecyclerView.setAdapter(movieAdapter);
         initViews();
 
