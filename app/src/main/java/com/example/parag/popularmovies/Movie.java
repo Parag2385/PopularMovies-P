@@ -1,18 +1,36 @@
 package com.example.parag.popularmovies;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.squareup.moshi.Json;
+
 /**
  * Created by parag on 03-09-2017.
  */
 
 @SuppressWarnings("DefaultFileTemplate")
-public class Movie {
+public class Movie implements Parcelable{
 
+    @Json(name = "poster_path")
     private String mMoviePoster;
+
+    @Json(name = "title")
     private String mMovieTitle;
+
+    @Json(name = "overview")
     private String mMovieOverview;
+
+    @Json(name = "release_date")
     private String mMovieReleaseDate;
+
+    @Json(name = "vote_average")
     private String mMovieVote;
+
+    @Json(name = "vote_count")
     private String mMovieVoteCount;
+
+    @Json(name = "original_language")
     private String mMovieLanguage;
 
     public Movie(String moviePoster, String movieTitle, String movieOverview, String movieReleaseDate, String movieVote, String movieVoteCount, String movieLanguage) {
@@ -24,9 +42,28 @@ public class Movie {
         this.mMovieVoteCount = movieVoteCount;
         this.mMovieLanguage = movieLanguage;
     }
-    public Movie(){
 
+    protected Movie(Parcel in) {
+        mMoviePoster = in.readString();
+        mMovieTitle = in.readString();
+        mMovieOverview = in.readString();
+        mMovieReleaseDate = in.readString();
+        mMovieVote = in.readString();
+        mMovieVoteCount = in.readString();
+        mMovieLanguage = in.readString();
     }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 
     public String getmMoviePoster() {
         return mMoviePoster;
@@ -54,5 +91,21 @@ public class Movie {
 
     public String getmMovieLanguage() {
         return mMovieLanguage;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mMoviePoster);
+        dest.writeString(mMovieTitle);
+        dest.writeString(mMovieOverview);
+        dest.writeString(mMovieReleaseDate);
+        dest.writeString(mMovieVote);
+        dest.writeString(mMovieVoteCount);
+        dest.writeString(mMovieLanguage);
     }
 }

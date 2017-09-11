@@ -108,9 +108,9 @@ public final class QueryUtils {
         return mUrl;
     }
 
-    private static ArrayList<Movie> extractFeatureFromJSON(String jsonResponce) {
+    private static ArrayList<Movie> extractFeatureFromJSON(String jsonResponse) {
 
-        if (TextUtils.isEmpty(jsonResponce)){
+        if (TextUtils.isEmpty(jsonResponse)){
             return null;
         }
 
@@ -124,7 +124,7 @@ public final class QueryUtils {
         String movieLanguage;
 
         try {
-            JSONObject baseJsonObject = new JSONObject(jsonResponce);
+            JSONObject baseJsonObject = new JSONObject(jsonResponse);
             JSONArray resultArray = baseJsonObject.getJSONArray("results");
             for (int i = 0; i < resultArray.length(); i++){
                 JSONObject currentMovie = resultArray.getJSONObject(i);

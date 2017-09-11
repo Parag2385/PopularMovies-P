@@ -24,6 +24,6 @@
     <string name="original_language">Original Language</string>
     <string name="not_available">Not Available</string>
     <string name="heart_image_for_votes">Heart Image for Votes</string>
-    <string name="movie_poster_for_gridview">Movie poster which will be shown in GridView</string>
     <string name="menu_settings">settings</string>
+    <string name="movie_poster">Movie Poster</string>
 </resources>

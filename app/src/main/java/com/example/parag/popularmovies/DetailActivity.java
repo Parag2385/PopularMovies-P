@@ -1,6 +1,5 @@
 package com.example.parag.popularmovies;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -15,12 +14,19 @@ import static com.example.parag.popularmovies.R.id.language;
 
 public class DetailActivity extends AppCompatActivity {
     private static final String IMAGE_URL = "https://image.tmdb.org/t/p/w500";
+    Movie movie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null){
+            movie = bundle.getParcelable("movie");
+        }else {
+            movie = savedInstanceState.getParcelable("movie");
+        }
         ImageView mMoviePoster = (ImageView) findViewById(R.id.movie_poster);
         TextView mMovieTitle = (TextView) findViewById(R.id.movie_title);
         TextView mMovieVote = (TextView) findViewById(R.id.movie_vote);
@@ -29,14 +35,17 @@ public class DetailActivity extends AppCompatActivity {
         TextView mMovieLanguage = (TextView) findViewById(language);
         TextView mMovieOverview = (TextView) findViewById(R.id.movie_overview);
 
-        Intent intent = this.getIntent();
-        String imageURL = intent.getExtras().getString("MovieURL");
-        String title = intent.getExtras().getString("Title");
-        String vote = intent.getExtras().getString("Vote");
-        String voteCount = intent.getExtras().getString("VoteCount");
-        String date = intent.getExtras().getString("Date");
-        String languageCode = intent.getExtras().getString("Language");
-        String overView = intent.getExtras().getString("Overview");
+        String imageURL = movie.getmMoviePoster();
+        String title = movie.getmMovieTitle();
+        String vote = movie.getmMovieVote();
+        String voteCount = movie.getmMovieVoteCount();
+        String date = movie.getmMovieReleaseDate();
+        String languageCode = movie.getmMovieLanguage();
+        String overView = movie.getmMovieOverview();
+
+        if (movie != null && movie.getmMovieTitle() != null){
+            setTitle(title);
+        }
 
         if (TextUtils.isEmpty(imageURL) || imageURL.equals("null")) {
             mMoviePoster.setImageResource(R.drawable.not_available);
@@ -46,9 +55,7 @@ public class DetailActivity extends AppCompatActivity {
                     .into(mMoviePoster);
         }
 
-        setTitle(title);
-
-        mMovieTitle.setText(intent.getExtras().getString("Title"));
+        mMovieTitle.setText(title);
 
         double votePercentage = Double.parseDouble(vote);
         votePercentage = votePercentage * 10;
@@ -103,5 +110,17 @@ public class DetailActivity extends AppCompatActivity {
             mMovieOverview.setText(overView);
         }
     }
+
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        outState.putParcelable("movie",movie);
+//        super.onSaveInstanceState(outState);
+//    }
+//
+//    @Override
+//    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+//        super.onRestoreInstanceState(savedInstanceState);
+//    }
+
 
 }
