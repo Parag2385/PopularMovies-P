@@ -10,5 +10,4 @@
         android:title="@string/settings_order_by_label"
         android:summary="%s"/>
 
-
 </PreferenceScreen>

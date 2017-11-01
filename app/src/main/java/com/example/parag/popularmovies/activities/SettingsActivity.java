@@ -1,4 +1,4 @@
-package com.example.parag.popularmovies;
+package com.example.parag.popularmovies.activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.parag.popularmovies.R;
 
 public class SettingsActivity extends AppCompatActivity {
 

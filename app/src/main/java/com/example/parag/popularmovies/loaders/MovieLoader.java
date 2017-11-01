@@ -1,13 +1,14 @@
-package com.example.parag.popularmovies.utilities;
+package com.example.parag.popularmovies.loaders;
 
 import android.content.Context;
 import android.content.AsyncTaskLoader;
+
+import com.example.parag.popularmovies.utilities.QueryUtils;
 
 /**
  * Created by parag on 03-09-2017.
  */
 
-@SuppressWarnings("DefaultFileTemplate")
 public class MovieLoader extends AsyncTaskLoader {
 
     private final String mUrl;
@@ -28,7 +29,6 @@ public class MovieLoader extends AsyncTaskLoader {
         if (mUrl == null) {
             return null;
         }
-
         return QueryUtils.fetchMovieData(mUrl);
     }
 }
