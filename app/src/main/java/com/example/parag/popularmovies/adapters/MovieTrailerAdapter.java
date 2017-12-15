@@ -47,8 +47,10 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
         holder.mTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(Intent.ACTION_VIEW,
-                        Uri.parse(VIDEO_URL + moviesList.get(holder.getAdapterPosition()).getmMovieTrailerKey())));
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse(VIDEO_URL + moviesList.get(holder.getAdapterPosition()).getmMovieTrailerKey()));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
             }
         });
     }

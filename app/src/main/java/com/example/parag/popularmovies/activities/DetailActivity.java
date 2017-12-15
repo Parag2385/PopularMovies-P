@@ -164,7 +164,8 @@ public class DetailActivity extends AppCompatActivity {
             mTrailerRecyclerView.setHasFixedSize(true);
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
             mTrailerRecyclerView.setLayoutManager(layoutManager);
-            mTrailerRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+            DividerItemDecoration decoration = new DividerItemDecoration(mTrailerRecyclerView.getContext(), DividerItemDecoration.VERTICAL);
+            mTrailerRecyclerView.addItemDecoration(decoration);
             mTrailerRecyclerView.setNestedScrollingEnabled(false);
 
             mReviewRecyclerView = (RecyclerView) findViewById(R.id.review_recycler_view);
