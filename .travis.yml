@@ -1,15 +1,18 @@
 language: android
 android:
-        components:
-                - platform-tools
-                - build-tools-25.0.3
-                - android-25
-                - extra-android-m2repository
+  components:
+  - platform-tools
+  - build-tools-25.0.3
+  - android-25
+  - extra-android-m2repository
 script:
-        - ./gradlew build
+- "./gradlew build"
 before_install:
-        - chmod +x gradlew
+- chmod +x gradlew
 branches:
-        only:
-                - master
-group: deprecated-2017Q4           
+  only:
+  - master
+group: deprecated-2017Q4
+env:
+  global:
+    secure: N8b74aVRXivNwaPFm1dKAvWBUx74SSvmgWQBIcBY+crhpxRvDgvN1Jc2JewGNmeloNnADgcwOE/pMd89GcvI5H2y5+hzHyTx8dctMwQP/HMujYQ6OXcdAeVsrT1EweBkHIWjSQGHFrBJm8ZoW7NI/gMKa9bAWEzMQSqZBiX43p3M+F3B4Qa3oNulxv8rFxo0da3D7ALAl5PkQlWnlgGq36wE/qSRZjB2oAQ92nwR8hx/Xumkp16AlX7fda6cJqRZk3ZqvTDaPCE7U6wCHT4gZMCBj/QswY0OXmdoyL10nwpQjrRRREAhv7d3d+/1CLn/7jxGeRRliqubI6jBWaGWb088iyeQwAEOIFOG33jyzAsdO6OlmE27HZxhsYODEQoVpGhK7Qyc/XAZqpDflhDGLV8aMoPOyy+0XRTqrscia6J7NeT5siEwED1qGmJu+D+UrRq6zULzIx//FTh7qP1ooAxn0pCa/stJyq+7N8o1D4pMfHTcblGJfizMa3nA9YuLP9qL+JPtOVvajiOzICyyWjbDPDSUNbm6AoQh9KZWQAt/FfBu6PF27Yg2sYATVKeP9u3MiYL8XbV2C4AFhka3krFqZ3Y8rbZQ3X85wL9k9ISkkqA8thLYK6DcrhT5TER73Y0l0go1ZsLlD1ubI5TyGJmLvat7TccBFjhtF5iDgnY=
