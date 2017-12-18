@@ -12,3 +12,4 @@ before_install:
 branches:
         only:
                 - master
+group: deprecated-2017Q4           
