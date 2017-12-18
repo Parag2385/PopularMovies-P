@@ -1,6 +1,6 @@
 # Popular Movies App
 
-![Travis-ci](https://api.travis-ci.org/Parag2385/PopularMovies-P.svg)
+![Travis-ci](https://travis-ci.org/Parag2385/PopularMovies-P.svg?branch=master)
 
 A simple Android app, that helps user to discover movies. This is Project 1 & Project 2 of Udacity's Android Developer Nanodegree.
 
