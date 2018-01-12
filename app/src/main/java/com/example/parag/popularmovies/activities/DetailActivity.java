@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.parag.popularmovies.BuildConfig;
 import com.example.parag.popularmovies.R;
 import com.example.parag.popularmovies.adapters.MovieReviewAdapter;
@@ -39,6 +40,7 @@ import com.example.parag.popularmovies.models.MovieReview;
 import com.example.parag.popularmovies.models.MovieTrailer;
 import com.example.parag.popularmovies.utilities.MovieContract.MovieEntry;
 import com.squareup.picasso.Picasso;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -90,6 +92,7 @@ public class DetailActivity extends AppCompatActivity {
     private int movieId;
     private int movieDBId;
     private String videoUrl;
+    private int dbId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -267,27 +270,44 @@ public class DetailActivity extends AppCompatActivity {
                     .into(coverImageView);
         }
 
-        String[] projection = new String[]{MovieEntry.MOVIE_ID};
-        Cursor cursor = getContentResolver().query(MovieEntry.CONTENT_URI, projection, null, null, null);
+        String[] projection = new String[]{MovieEntry.MOVIE_ID, MovieEntry._ID};
+        final Cursor cursor = getContentResolver().query(MovieEntry.CONTENT_URI, projection, null, null, null);
         try {
             cursor.moveToFirst();
             int movieIdIndex = cursor.getColumnIndex(MovieEntry.MOVIE_ID);
             for (int i = 0; i < cursor.getCount(); i++) {
                 int id = cursor.getInt(movieIdIndex);
-                cursor.moveToNext();
                 if (id == movieId) {
                     isFavourite = true;
                     favoriteButton.setImageResource(R.drawable.heart_icon_red);
                 }
+                cursor.moveToNext();
             }
-        } finally {
+        }finally {
             cursor.close();
         }
 
-        favoriteButton.setOnClickListener(new View.OnClickListener() {
 
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String[] projection = new String[]{MovieEntry.MOVIE_ID, MovieEntry._ID};
+                Cursor cursor = getContentResolver().query(MovieEntry.CONTENT_URI, projection, null, null, null);
+                try {
+                    cursor.moveToFirst();
+                    int movieIdIndex = cursor.getColumnIndex(MovieEntry.MOVIE_ID);
+                    int dbIndex = cursor.getColumnIndex(MovieEntry._ID);
+                    for (int i = 0; i < cursor.getCount(); i++) {
+                        int id = cursor.getInt(movieIdIndex);
+                        dbId = cursor.getInt(dbIndex);
+                        if (id == movieId) {
+                            movieDBId = dbId;
+                        }
+                        cursor.moveToNext();
+                    }
+                }finally {
+                    cursor.close();
+                }
                 if (isFavourite) {
                     isFavourite = false;
                     favoriteButton.setImageResource(R.drawable.heart_icon_red_border);
@@ -296,6 +316,8 @@ public class DetailActivity extends AppCompatActivity {
 
                     if (deleted > 0) {
                         Toast.makeText(getBaseContext(), "Movie deleted from Favorites", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getBaseContext(), "Error Deleting Movie", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     addMovieDataToDB(movieId, title, overView, languageCode,
@@ -330,6 +352,7 @@ public class DetailActivity extends AppCompatActivity {
         if (uri != null) {
             Toast.makeText(getBaseContext(), "Movie added to Favorites", Toast.LENGTH_SHORT).show();
         }
+        getContentResolver().notifyChange(uri, null);
     }
 
     @Override
@@ -495,7 +518,7 @@ public class DetailActivity extends AppCompatActivity {
                     coverUrl = mCursor.getString(coverIndex);
                     setData();
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

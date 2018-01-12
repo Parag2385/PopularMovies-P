@@ -70,11 +70,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         if (savedInstanceState != null){
-            sort = savedInstanceState.getString("sort");
-            if (!TextUtils.equals(sort,getString(R.string.settings_order_by_favourite_value))) {
-                mMovies = savedInstanceState.getParcelableArrayList("my_list");
-                MovieAdapter movieAdapter = new MovieAdapter(this, (ArrayList<Movie>) mMovies);
-                mRecyclerView.setAdapter(movieAdapter);
+            if (isNetworkAvailable()) {
+                sort = savedInstanceState.getString("sort");
+                if (!TextUtils.equals(sort, getString(R.string.settings_order_by_favourite_value))) {
+                    mMovies = savedInstanceState.getParcelableArrayList("my_list");
+                    MovieAdapter movieAdapter = new MovieAdapter(this, (ArrayList<Movie>) mMovies);
+                    mRecyclerView.setAdapter(movieAdapter);
+                } else {
+                    getLoaderManager().initLoader(MOVIE_DATABASE_LOADER_ID, null, databaseLoader);
+                    setTitle("Favorite Movies");
+                    Parcelable savedRecyclerLayoutState = savedInstanceState.getParcelable("scroll");
+                    mRecyclerView.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState);
+                }
             }else {
                 getLoaderManager().initLoader(MOVIE_DATABASE_LOADER_ID, null, databaseLoader);
                 setTitle("Favorite Movies");
@@ -110,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             }
         } else {
-
             if (sortBy.equals(getString(R.string.settings_order_by_popular_value)) ||
                     sortBy.equals(getString(R.string.settings_order_by_rating_values))) {
                 toastMessage();
@@ -121,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             setTitle("Favorite Movies");
         }
     }
-
 
     @Override
     protected void onResume() {
@@ -134,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (!TextUtils.equals(sort, sortBy)) {
             loadData();
         }
+
         super.onResume();
     }
 
